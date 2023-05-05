@@ -6,9 +6,11 @@ from connect import con, cursor
 
 class Web:
     def __init__(self, marca):
-        self.marca = marca  # Marcas: asus, xiaomi, samsung, realme, motorola e todas
+        self.marca = marca  # Marcas: asus, xiaomi, samsung, lg, motorola e todas
         if self.marca == "todas":
             self.site = 'https://www.kabum.com.br/celular-smartphone/smartphones'
+        elif self.marca == "iphone":
+            self.site = f'https://www.kabum.com.br/celular-smartphone/smartphones/iphone'
         else:
             self.site = f'https://www.kabum.com.br/celular-smartphone/smartphones/smartphone-{self.marca}'
         self.map = {
@@ -31,10 +33,18 @@ class Web:
         sleep(5)
         resultados = []
         for i in range(1, 11):
-            descricao = self.driver.find_element(By.XPATH, self.map['descricao']['xpath'].replace('%desc%', f'{i}')).text
-            preco = self.driver.find_element(By.XPATH, self.map['preco']['xpath'].replace('%preco%', f'{i}')).text
-            preco_new = preco[3:]
-            resultados.append((descricao, preco_new))
+            try:
+                descricao = self.driver.find_element(By.XPATH,
+                                                     self.map['descricao']['xpath'].replace('%desc%', f'{i}')).text
+                descricao_new = descricao.split(', ')
+
+                descricao_new_neo = descricao_new[0] + ' ' + descricao_new[1] + ' ' + descricao_new[2]
+
+                preco = self.driver.find_element(By.XPATH, self.map['preco']['xpath'].replace('%preco%', f'{i}')).text
+                preco_new = preco[3:]
+                resultados.append((descricao_new_neo, preco_new))
+            except:
+                pass
 
         query = f"INSERT INTO phone_{self.marca} (modelo, preco) VALUES (%s, %s)"
 
