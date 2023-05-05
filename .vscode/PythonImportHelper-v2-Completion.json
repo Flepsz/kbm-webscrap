@@ -1,0 +1,146 @@
+[
+    {
+        "label": "mysql.connector",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "mysql.connector",
+        "description": "mysql.connector",
+        "detail": "mysql.connector",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "ttk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "cursor",
+        "importPath": "connect",
+        "description": "connect",
+        "isExtraImport": true,
+        "detail": "connect",
+        "documentation": {}
+    },
+    {
+        "label": "con",
+        "importPath": "connect",
+        "description": "connect",
+        "isExtraImport": true,
+        "detail": "connect",
+        "documentation": {}
+    },
+    {
+        "label": "cursor",
+        "importPath": "connect",
+        "description": "connect",
+        "isExtraImport": true,
+        "detail": "connect",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "Web",
+        "importPath": "web",
+        "description": "web",
+        "isExtraImport": true,
+        "detail": "web",
+        "documentation": {}
+    },
+    {
+        "label": "webdriver",
+        "importPath": "selenium",
+        "description": "selenium",
+        "isExtraImport": true,
+        "detail": "selenium",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "sleep",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "con",
+        "kind": 5,
+        "importPath": "src.connect",
+        "description": "src.connect",
+        "peekOfCode": "con = mysql.connector.connect(\n    host='localhost',\n    user='root',\n    password='',\n    database='kabum'\n)\ncursor = con.cursor()",
+        "detail": "src.connect",
+        "documentation": {}
+    },
+    {
+        "label": "cursor",
+        "kind": 5,
+        "importPath": "src.connect",
+        "description": "src.connect",
+        "peekOfCode": "cursor = con.cursor()",
+        "detail": "src.connect",
+        "documentation": {}
+    },
+    {
+        "label": "App",
+        "kind": 6,
+        "importPath": "src.janela",
+        "description": "src.janela",
+        "peekOfCode": "class App:\n    def __init__(self):\n        self.marcas = [\"Todas\", \"Xiaomi\", \"Asus\", \"Samsung\", \"Realme\", \"Motorola\"]\n        self. janela = janela\n        self.tela()\n        self.frames()\n        # self.labels()\n        # self.botoes()\n        # self.lista_frame1()\n        janela.mainloop()",
+        "detail": "src.janela",
+        "documentation": {}
+    },
+    {
+        "label": "janela",
+        "kind": 5,
+        "importPath": "src.janela",
+        "description": "src.janela",
+        "peekOfCode": "janela = Tk()\nclass App:\n    def __init__(self):\n        self.marcas = [\"Todas\", \"Xiaomi\", \"Asus\", \"Samsung\", \"Realme\", \"Motorola\"]\n        self. janela = janela\n        self.tela()\n        self.frames()\n        # self.labels()\n        # self.botoes()\n        # self.lista_frame1()",
+        "detail": "src.janela",
+        "documentation": {}
+    },
+    {
+        "label": "marcas",
+        "kind": 5,
+        "importPath": "src.tests",
+        "description": "src.tests",
+        "peekOfCode": "marcas = [\"Todas\", \"Xiaomi\", \"Asus\", \"Samsung\", \"Realme\", \"Motorola\"]\nprint(marcas)",
+        "detail": "src.tests",
+        "documentation": {}
+    },
+    {
+        "label": "Web",
+        "kind": 6,
+        "importPath": "src.web",
+        "description": "src.web",
+        "peekOfCode": "class Web:\n    def __init__(self, marca):\n        self.marca = marca  # Marcas: asus, xiaomi, samsung, realme, motorola e todas\n        if self.marca == \"todas\":\n            self.site = 'https://www.kabum.com.br/celular-smartphone/smartphones'\n        else:\n            self.site = f'https://www.kabum.com.br/celular-smartphone/smartphones/smartphone-{self.marca}'\n        self.map = {\n            'descricao': {\n                'xpath': '/html/body/div[1]/div[1]/div[3]/div/div/div[2]/div/main/div[%desc%]/a/div/button/div/h2/span'",
+        "detail": "src.web",
+        "documentation": {}
+    }
+]
