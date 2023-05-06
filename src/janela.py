@@ -30,10 +30,12 @@ class App:
     
     def frames(self):
         self.frame_0 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
-        self.frame_0.place(relx=0.03, rely=0.03, relwidth=0.94, relheight=0.15)
+        self.frame_0.place(relx=0.03, rely=0.03, relwidth=0.94, relheight=0.14)
 
         self.frame_1 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
         self.frame_1.place(relx=0.03, rely=0.20, relwidth=0.94, relheight=0.40)
+
+        # self.frame_2 = Frame()
 
     def botoes(self):
         self.btPesquisar = Button(self.frame_0, text="Pesquisar", fg='#011013', bg='#fff', relief='flat', command=self.pesquisar)
