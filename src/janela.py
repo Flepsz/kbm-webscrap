@@ -35,7 +35,8 @@ class App:
         self.frame_1 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
         self.frame_1.place(relx=0.03, rely=0.20, relwidth=0.94, relheight=0.40)
 
-        # self.frame_2 = Frame()
+        self.frame_2 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
+        self.frame_2.place(relx=0.03, rely=0.63, relwidth=0.94, relheight=0.34)
 
     def botoes(self):
         self.btPesquisar = Button(self.frame_0, text="Pesquisar", fg='#011013', bg='#fff', relief='flat', command=self.pesquisar)
@@ -126,6 +127,7 @@ class App:
 
         self.limpar()
         self.atualizar()
+
 
 if __name__ == '__main__':
     App()
