@@ -4,6 +4,8 @@ from tkinter import ttk, messagebox
 from connect import cursor
 from web import Web
 from delete import del_usuario
+from matplotlib import pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 janela = Tk()
 
@@ -11,7 +13,7 @@ janela = Tk()
 class App:
     def __init__(self):
         self.marcas = ["Todas", "Xiaomi", "Iphone", "Asus", "Samsung", "Motorola"]
-        self. janela = janela
+        self.janela = janela
         self.tela()
         self.frames()
         self.labels()
@@ -27,7 +29,7 @@ class App:
         self.janela.configure(background='#0060b1')
         self.janela.resizable(True, True)
         self.janela.maxsize(width=700, height=700)
-    
+
     def frames(self):
         self.frame_0 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
         self.frame_0.place(relx=0.03, rely=0.03, relwidth=0.94, relheight=0.14)
@@ -39,15 +41,21 @@ class App:
         self.frame_2.place(relx=0.03, rely=0.63, relwidth=0.94, relheight=0.34)
 
     def botoes(self):
-        self.btPesquisar = Button(self.frame_0, text="Pesquisar", fg='#011013', bg='#fff', relief='flat', command=self.pesquisar)
+        self.btPesquisar = Button(self.frame_0, text="Pesquisar", fg='#011013', bg='#fff', relief='flat',
+                                  command=self.pesquisar)
         self.btPesquisar.place(relx=0.30, rely=0.32, relwidth=0.1, relheight=0.3)
 
-        self.btAtualizar = Button(self.frame_0, text='Atualizar', fg='#011013', bg='#fff', relief='flat', command=self.atualizar)
+        self.btAtualizar = Button(self.frame_0, text='Atualizar', fg='#011013', bg='#fff', relief='flat',
+                                  command=self.atualizar)
         self.btAtualizar.place(relx=0.43, rely=0.32, relwidth=0.1, relheight=0.3)
 
         self.btDelete = Button(self.frame_0, text='Deletar', fg='#011013', bg='#fff', relief='flat',
-                                  command=self.deletar)
+                               command=self.deletar)
         self.btDelete.place(relx=0.85, rely=0.32, relwidth=0.1, relheight=0.3)
+
+        self.btGraph = Button(self.frame_2, text="Gráfico", fg='#011013', bg='#fff', relief='flat',
+                              command=self.graph)
+        self.btGraph.place(relx=0.05, rely=0.2, relwidth=0.1, relheight=0.15)
 
     def labels(self):
         self.label_marcas = Label(self.frame_0, text="Marcas:", font=("Arial", 12), fg='#fff', bg='#ff6501')
@@ -98,8 +106,10 @@ class App:
 
             for row in cursor.fetchall():
                 self.trviewKbm.insert("", "end", values=row)
+
         except:
-            messagebox.showerror(title="Erro", message="Sem dados, não foi encontrado nenhum resultado para a pesquisa. (Tente pesquisar)")
+            messagebox.showerror(title="Erro",
+                                 message="Sem dados, não foi encontrado nenhum resultado para a pesquisa. (Tente pesquisar)")
 
     def pesquisar(self):
         messagebox.showinfo("Aguarde", "Estamos puxando as informações...")
@@ -127,6 +137,32 @@ class App:
 
         self.limpar()
         self.atualizar()
+
+    def graph(self):
+        marca = self.combo_marcas.get().lower()
+        query = f"SELECT * FROM phone_{marca}"
+        cursor.execute(query)
+        resultado = cursor.fetchall()
+        celular = []
+        preco = []
+
+        for i in resultado:
+            celular.append(i[1])
+            preco.append(i[2])
+
+        print(celular)
+        print(preco)
+        celular, preco = zip(*sorted(zip(celular, preco), key=lambda x: x[1], reverse=True))
+
+        plt.figure(figsize=(10, 6))
+        plt.bar(celular, preco)
+        plt.title("Preços dos celulares")
+        plt.xlabel("Celulares")
+        plt.ylabel("Preços (R$)")
+        plt.subplots_adjust(left=0.096, bottom=0.521, right=0.952, top=0.948)
+        plt.xticks(rotation=45)
+
+        plt.show()
 
 
 if __name__ == '__main__':
