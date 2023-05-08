@@ -112,6 +112,7 @@ class App:
                                  message="Sem dados, não foi encontrado nenhum resultado para a pesquisa. (Tente pesquisar)")
 
     def pesquisar(self):
+        # Executa o web scraping em threading.
         threading.Thread(target=self.executar_scraping).start()
         messagebox.showinfo("Aguarde", "Estamos puxando as informações...")
 

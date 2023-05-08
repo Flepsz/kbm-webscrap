@@ -24,7 +24,7 @@ class Web:
         self.con = con
         self.cursor = cursor
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
+        options.add_argument("--headless")  # Webscraping fica oculto
         self.driver = webdriver.Chrome(options=options)
         self.driver.maximize_window()
         self.criar_tabela()
