@@ -112,8 +112,8 @@ class App:
                                  message="Sem dados, não foi encontrado nenhum resultado para a pesquisa. (Tente pesquisar)")
 
     def pesquisar(self):
-        messagebox.showinfo("Aguarde", "Estamos puxando as informações...")
         threading.Thread(target=self.executar_scraping).start()
+        messagebox.showinfo("Aguarde", "Estamos puxando as informações...")
 
     def executar_scraping(self):
         marca = self.combo_marcas.get().lower()
@@ -150,10 +150,10 @@ class App:
             celular.append(i[1])
             preco.append(i[2])
 
-        print(celular)
-        print(preco)
         celular, preco = zip(*sorted(zip(celular, preco), key=lambda x: x[1], reverse=True))
 
+        print(celular)
+        print(preco)
         plt.figure(figsize=(10, 6))
         plt.bar(celular, preco)
         plt.title("Preços dos celulares")

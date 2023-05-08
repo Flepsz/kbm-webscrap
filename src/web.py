@@ -23,7 +23,9 @@ class Web:
         }
         self.con = con
         self.cursor = cursor
-        self.driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        self.driver = webdriver.Chrome(options=options)
         self.driver.maximize_window()
         self.criar_tabela()
         self.scrap()
