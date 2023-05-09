@@ -109,7 +109,7 @@ class App:
 
         except:
             messagebox.showerror(title="Erro",
-                                 message="Sem dados, não foi encontrado nenhum resultado para a pesquisa. (Tente pesquisar)")
+                                 message="Sem dados, não foi encontrado nenhum resultado para a pesquisa. Tente pesquisar!")
 
     def pesquisar(self):
         # Executa o web scraping em threading.
@@ -133,37 +133,45 @@ class App:
         self.atualizar()
 
     def deletar(self):
-        marca = self.combo_marcas.get().lower()
-        del_usuario(marca, self.inpIDPhone.get())
+        try:
+            marca = self.combo_marcas.get().lower()
+            del_usuario(marca, self.inpIDPhone.get())
 
-        self.limpar()
-        self.atualizar()
+            self.limpar()
+            self.atualizar()
+        except:
+            messagebox.showerror(title="Erro",
+                                 message="Sem dados, não foi encontrado nenhum resultado para apagar. Tente pesquisar!")
 
     def graph(self):
-        marca = self.combo_marcas.get().lower()
-        query = f"SELECT * FROM phone_{marca}"
-        cursor.execute(query)
-        resultado = cursor.fetchall()
-        celular = []
-        preco = []
+        try:
+            marca = self.combo_marcas.get().lower()
+            query = f"SELECT * FROM phone_{marca}"
+            cursor.execute(query)
+            resultado = cursor.fetchall()
+            celular = []
+            preco = []
 
-        for i in resultado:
-            celular.append(i[1])
-            preco.append(i[2])
+            for i in resultado:
+                celular.append(i[1])
+                preco.append(i[2])
 
-        celular, preco = zip(*sorted(zip(celular, preco), key=lambda x: x[1], reverse=True))
+            celular, preco = zip(*sorted(zip(celular, preco), key=lambda x: x[1], reverse=True))
 
-        print(celular)
-        print(preco)
-        plt.figure(figsize=(10, 6))
-        plt.bar(celular, preco)
-        plt.title("Preços dos celulares")
-        plt.xlabel("Celulares")
-        plt.ylabel("Preços (R$)")
-        plt.subplots_adjust(left=0.096, bottom=0.521, right=0.952, top=0.948)
-        plt.xticks(rotation=45)
+            print(celular)
+            print(preco)
+            plt.figure(figsize=(10, 6))
+            plt.bar(celular, preco)
+            plt.title("Preços dos celulares")
+            plt.xlabel("Celulares")
+            plt.ylabel("Preços (R$)")
+            plt.subplots_adjust(left=0.096, bottom=0.521, right=0.952, top=0.948)
+            plt.xticks(rotation=45)
 
-        plt.show()
+            plt.show()
+        except:
+            messagebox.showerror(title="Erro",
+                                 message="Sem dados, não foi encontrado nenhum resultado para gerar o gráfico. Tente pesquisar!")
 
 
 if __name__ == '__main__':

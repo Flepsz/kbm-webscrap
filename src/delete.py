@@ -1,4 +1,4 @@
-import mysql.connector
+from tkinter import messagebox
 from connect import cursor, con
 
 
@@ -7,6 +7,8 @@ def del_usuario(marca, idPhone):
         sql = f"""DELETE FROM phone_{marca} WHERE id = '{idPhone}';"""
         cursor.execute(sql)
         con.commit()
-        print("Sucesso ao apagar os dados...")
+        messagebox.showinfo(title="Sucesso",
+                            message="Dado Apagado!")
     except:
-        print("Erro ao apagar os dados...")
+        messagebox.showerror(title="Erro",
+                             message="Sem dados, não foi encontrado nenhum resultado para apagar. Tente pesquisar!")
