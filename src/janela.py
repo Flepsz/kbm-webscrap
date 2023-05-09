@@ -5,7 +5,6 @@ from connect import cursor
 from web import Web
 from delete import del_usuario
 from matplotlib import pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 janela = Tk()
 
