@@ -54,6 +54,7 @@ class Web:
         self.con.commit()
 
     def criar_tabela(self):
+        self.cursor.execute("CREATE DATABASE IF NOT EXISTS kabum")
         self.cursor.execute(
             f"SELECT * FROM information_schema.tables WHERE table_name = 'phone_{self.marca}'")
         table_exists = self.cursor.fetchone()

@@ -4,7 +4,6 @@ from tkinter import ttk, messagebox
 from connect import cursor
 from web import Web
 from delete import del_usuario
-from matplotlib import pyplot as plt
 
 janela = Tk()
 
@@ -23,7 +22,7 @@ class App:
 
     def tela(self):
         self.janela.title('Kabum Search')
-        self.janela.geometry('700x700')
+        self.janela.geometry('700x500')
         self.janela.iconbitmap('kbm.ico')
         self.janela.configure(background='#0060b1')
         self.janela.resizable(True, True)
@@ -31,13 +30,12 @@ class App:
 
     def frames(self):
         self.frame_0 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
-        self.frame_0.place(relx=0.03, rely=0.03, relwidth=0.94, relheight=0.14)
+        self.frame_0.place(relx=0.03, rely=0.03, relwidth=0.94, relheight=0.22)
 
         self.frame_1 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
-        self.frame_1.place(relx=0.03, rely=0.20, relwidth=0.94, relheight=0.40)
+        self.frame_1.place(relx=0.03, rely=0.27, relwidth=0.94, relheight=0.70)
 
-        self.frame_2 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
-        self.frame_2.place(relx=0.03, rely=0.63, relwidth=0.94, relheight=0.34)
+
 
     def botoes(self):
         self.btPesquisar = Button(self.frame_0, text="Pesquisar", fg='#011013', bg='#fff', relief='flat',
@@ -52,9 +50,9 @@ class App:
                                command=self.deletar)
         self.btDelete.place(relx=0.85, rely=0.32, relwidth=0.1, relheight=0.3)
 
-        self.btGraph = Button(self.frame_2, text="Gráfico", fg='#011013', bg='#fff', relief='flat',
-                              command=self.graph)
-        self.btGraph.place(relx=0.05, rely=0.2, relwidth=0.1, relheight=0.15)
+        # self.btGraph = Button(self.frame_2, text="Gráfico", fg='#011013', bg='#fff', relief='flat',
+        #                       command=self.graph)
+        # self.btGraph.place(relx=0.05, rely=0.2, relwidth=0.1, relheight=0.15)
 
     def labels(self):
         self.label_marcas = Label(self.frame_0, text="Marcas:", font=("Arial", 12), fg='#fff', bg='#ff6501')
@@ -142,35 +140,33 @@ class App:
             messagebox.showerror(title="Erro",
                                  message="Sem dados, não foi encontrado nenhum resultado para apagar. Tente pesquisar!")
 
-    def graph(self):
-        try:
-            marca = self.combo_marcas.get().lower()
-            query = f"SELECT * FROM phone_{marca}"
-            cursor.execute(query)
-            resultado = cursor.fetchall()
-            celular = []
-            preco = []
-
-            for i in resultado:
-                celular.append(i[1])
-                preco.append(i[2])
-
-            celular, preco = zip(*sorted(zip(celular, preco), key=lambda x: x[1], reverse=True))
-
-            print(celular)
-            print(preco)
-            plt.figure(figsize=(10, 6))
-            plt.bar(celular, preco)
-            plt.title("Preços dos celulares")
-            plt.xlabel("Celulares")
-            plt.ylabel("Preços (R$)")
-            plt.subplots_adjust(left=0.096, bottom=0.521, right=0.952, top=0.948)
-            plt.xticks(rotation=45)
-
-            plt.show()
-        except:
-            messagebox.showerror(title="Erro",
-                                 message="Sem dados, não foi encontrado nenhum resultado para gerar o gráfico. Tente pesquisar!")
+    # def graph(self):
+    #     try:
+    #         marca = self.combo_marcas.get().lower()
+    #         query = f"SELECT * FROM phone_{marca}"
+    #         cursor.execute(query)
+    #         resultado = cursor.fetchall()
+    #         celular = []
+    #         preco = []
+    #
+    #         for i in resultado:
+    #             celular.append(i[1])
+    #             preco.append(i[2])
+    #
+    #         celular, preco = zip(*sorted(zip(celular, preco), key=lambda x: x[1], reverse=True))
+    #
+    #         print(celular)
+    #         print(preco)
+    #         plt.figure(figsize=(10, 6))
+    #         plt.bar(celular, preco)
+    #         plt.title("Preços dos celulares")
+    #         plt.xlabel("Celulares")
+    #         plt.ylabel("Preços (R$)")
+    #         plt.subplots_adjust(left=0.096, bottom=0.521, right=0.952, top=0.948)
+    #         plt.xticks(rotation=45)
+    #
+    # plt.show() except: messagebox.showerror(title="Erro", message="Sem dados, não foi encontrado nenhum resultado
+    # para gerar o gráfico. Tente pesquisar!")
 
 
 if __name__ == '__main__':
