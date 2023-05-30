@@ -10,7 +10,7 @@ class Web:
         if self.marca == "todas":
             self.site = 'https://www.kabum.com.br/celular-smartphone/smartphones'
         elif self.marca == "iphone":
-            self.site = f'https://www.kabum.com.br/celular-smartphone/smartphones/iphone'
+            self.site = 'https://www.kabum.com.br/celular-smartphone/smartphones/iphone'
         else:
             self.site = f'https://www.kabum.com.br/celular-smartphone/smartphones/smartphone-{self.marca}'
         self.map = {
@@ -52,6 +52,7 @@ class Web:
 
         self.cursor.executemany(query, resultados)
         self.con.commit()
+
 
     def criar_tabela(self):
         self.cursor.execute(

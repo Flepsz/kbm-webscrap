@@ -4,6 +4,8 @@ from tkinter import ttk, messagebox
 from connect import cursor
 from web import Web
 from delete import del_usuario
+import pandas as pd
+
 
 janela = Tk()
 
@@ -12,6 +14,7 @@ class App:
     def __init__(self):
         self.marcas = ["Todas", "Xiaomi", "Iphone", "Asus", "Samsung", "Motorola"]
         self.janela = janela
+        self.results = []
         self.tela()
         self.frames()
         self.labels()
@@ -35,8 +38,6 @@ class App:
         self.frame_1 = Frame(self.janela, bg='#ff6501', highlightthickness=1, highlightbackground='#332F2E')
         self.frame_1.place(relx=0.03, rely=0.27, relwidth=0.94, relheight=0.70)
 
-
-
     def botoes(self):
         self.btPesquisar = Button(self.frame_0, text="Pesquisar", fg='#011013', bg='#fff', relief='flat',
                                   command=self.pesquisar)
@@ -50,6 +51,10 @@ class App:
                                command=self.deletar)
         self.btDelete.place(relx=0.85, rely=0.32, relwidth=0.1, relheight=0.3)
 
+        self.btCsv = Button(self.frame_0, text='Exportar CSV', fg='#011013', bg='#fff', relief='flat',
+                               command=self.csv)
+        self.btCsv.place(relx=0.56, rely=0.32, relwidth=0.12, relheight=0.3)
+
         # self.btGraph = Button(self.frame_2, text="Gráfico", fg='#011013', bg='#fff', relief='flat',
         #                       command=self.graph)
         # self.btGraph.place(relx=0.05, rely=0.2, relwidth=0.1, relheight=0.15)
@@ -59,7 +64,7 @@ class App:
         self.label_marcas.place(relx=0.05, rely=0.10)
 
         self.label_id = Label(self.frame_0, text="ID", font=("Arial", 12), fg='#fff', bg='#ff6501')
-        self.label_id.place(relx=0.7333, rely=0.10)
+        self.label_id.place(relx=0.7633, rely=0.10)
 
         self.combo_marcas = ttk.Combobox(self.frame_0, values=self.marcas, font=("sans-serif", 12))
         self.combo_marcas.set(self.marcas[0])
@@ -68,7 +73,7 @@ class App:
 
     def inputs(self):
         self.inpIDPhone = Entry(self.frame_0)
-        self.inpIDPhone.place(relx=0.70, rely=0.32, relwidth=0.1, relheight=0.3)
+        self.inpIDPhone.place(relx=0.73, rely=0.32, relwidth=0.1, relheight=0.3)
 
     def lista_frame1(self):
         self.trviewKbm = ttk.Treeview(self.frame_1, height=3, columns=('col1',
@@ -139,6 +144,15 @@ class App:
         except:
             messagebox.showerror(title="Erro",
                                  message="Sem dados, não foi encontrado nenhum resultado para apagar. Tente pesquisar!")
+
+    def csv(self):
+        marca = self.combo_marcas.get().lower()
+        sql = f'SELECT * FROM phone_{marca}'
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+        df = pd.DataFrame(results, columns=['Id', 'Produto', 'Preço'])
+        df.to_csv(f'results_{marca}.csv', index=False, encoding='utf-8', sep=';')
 
     # def graph(self):
     #     try:
