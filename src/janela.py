@@ -5,7 +5,7 @@ from connect import cursor
 from web import Web
 from delete import del_usuario
 import pandas as pd
-
+import os
 
 janela = Tk()
 
@@ -146,13 +146,20 @@ class App:
                                  message="Sem dados, não foi encontrado nenhum resultado para apagar. Tente pesquisar!")
 
     def csv(self):
-        marca = self.combo_marcas.get().lower()
-        sql = f'SELECT * FROM phone_{marca}'
-        cursor.execute(sql)
-        results = cursor.fetchall()
-
-        df = pd.DataFrame(results, columns=['Id', 'Produto', 'Preço'])
-        df.to_csv(f'results_{marca}.csv', index=False, encoding='utf-8', sep=';')
+        try:
+            marca = self.combo_marcas.get().lower()
+            sql = f'SELECT * FROM phone_{marca}'
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            try:
+                os.mkdir('./csv')
+            except FileExistsError:
+                pass
+            df = pd.DataFrame(results, columns=['Id', 'Produto', 'Preço'])
+            df.to_csv(f'./csv/results_{marca}.csv', index=False, encoding='utf-8', sep=';')
+        except:
+            messagebox.showerror(title="Erro",
+                                 message="Sem dados, não foi encontrado nenhum resultado. Tente pesquisar!")
 
     # def graph(self):
     #     try:
